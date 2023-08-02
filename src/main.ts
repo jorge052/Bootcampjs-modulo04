@@ -1,26 +1,58 @@
 import "./style.css";
 
-const numeroTurno0 = document.getElementById(
-  "numero-turno"
-) as HTMLHeadingElement | null;
+const numeroTurno0 = document.getElementById("numero-turno");
+
 let numeroTurno: string = "";
-if (numeroTurno0) {
+
+if (numeroTurno0 instanceof HTMLHeadingElement) {
   numeroTurno = numeroTurno0.innerText;
 } else {
   numeroTurno = "";
 }
 
-const botonAnterior = document.getElementById(
-  "botonAnterior"
-) as HTMLButtonElement;
-const botonSiguiente = document.getElementById(
-  "botonSiguiente"
-) as HTMLButtonElement;
-const botonReset = document.getElementById("reset") as HTMLButtonElement;
-const inputTurno = document.getElementById("inputTurno") as HTMLInputElement;
-const botonCambiarTurno = document.getElementById(
-  "botonCambiarTurno"
-) as HTMLButtonElement;
+const botonAnterior = document.getElementById("botonAnterior");
+
+const botonSiguiente = document.getElementById("botonSiguiente");
+
+const botonReset = document.getElementById("reset");
+
+const inputTurno = document.getElementById("inputTurno");
+
+const botonCambiarTurno = document.getElementById("botonCambiarTurno");
+
+if (botonAnterior instanceof HTMLButtonElement) {
+  botonAnterior.addEventListener("click", function () {
+    turnoActual = Math.max(0, turnoActual - 1);
+    actualizarTurnoDisplay();
+  });
+}
+
+if (botonSiguiente instanceof HTMLButtonElement) {
+  botonSiguiente.addEventListener("click", function () {
+    turnoActual++;
+    actualizarTurnoDisplay();
+  });
+}
+
+if (botonReset instanceof HTMLButtonElement) {
+  botonReset.addEventListener("click", function () {
+    turnoActual = 0;
+    actualizarTurnoDisplay();
+  });
+}
+
+if (
+  inputTurno instanceof HTMLInputElement &&
+  botonCambiarTurno instanceof HTMLButtonElement
+) {
+  botonCambiarTurno.addEventListener("click", function () {
+    const nuevoTurno = parseInt(inputTurno.value);
+    if (!isNaN(nuevoTurno)) {
+      turnoActual = Math.max(0, nuevoTurno);
+      actualizarTurnoDisplay();
+    }
+  });
+}
 
 // Variable para guardar el turno actual
 let turnoActual = 0;
@@ -32,30 +64,3 @@ function actualizarTurnoDisplay() {
     numeroTurno0.innerText = numeroTurno;
   }
 }
-
-//  Hacer clic en el botón "Siguiente"
-botonSiguiente.addEventListener("click", function () {
-  turnoActual++;
-  actualizarTurnoDisplay();
-});
-
-// Hacer clic en el botón "Anterior"
-botonAnterior.addEventListener("click", function () {
-  turnoActual = Math.max(0, turnoActual - 1);
-  actualizarTurnoDisplay();
-});
-
-// Hacer clic en el botón "Reset"
-botonReset.addEventListener("click", function () {
-  turnoActual = 0;
-  actualizarTurnoDisplay();
-});
-
-// Evento al hacer clic en el botón "Cambiar Turno"
-botonCambiarTurno.addEventListener("click", function() {
-  const nuevoTurno = parseInt(inputTurno.value);
-  if (!isNaN(nuevoTurno)) {
-    turnoActual = Math.max(0, nuevoTurno);
-    actualizarTurnoDisplay();
-  }
-});
