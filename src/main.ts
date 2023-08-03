@@ -11,56 +11,61 @@ const inicio = () => {
   }
 };
 
-document.addEventListener("DOMContentLoaded", inicio);
+document.addEventListener("DOMContentLoaded", function () {
+  inicio();
+  Eventos();
+});
 
-const botonAnterior = document.getElementById("botonAnterior");
+function Eventos() {
+  const botonAnterior = document.getElementById("botonAnterior");
 
-const botonSiguiente = document.getElementById("botonSiguiente");
+  const botonSiguiente = document.getElementById("botonSiguiente");
 
-const botonReset = document.getElementById("reset");
+  const botonReset = document.getElementById("reset");
 
-const inputTurno = document.getElementById("inputTurno");
+  const inputTurno = document.getElementById("inputTurno");
 
-const botonCambiarTurno = document.getElementById("botonCambiarTurno");
+  const botonCambiarTurno = document.getElementById("botonCambiarTurno");
 
-if (botonAnterior instanceof HTMLButtonElement) {
-  botonAnterior.addEventListener("click", function () {
-    numeroTurno = Math.max(0, numeroTurno - 1);
-    inicio();
-  });
-} else {
-  console.error("error");
-}
-
-if (botonSiguiente instanceof HTMLButtonElement) {
-  botonSiguiente.addEventListener("click", function () {
-    numeroTurno++;
-    inicio();
-  });
-} else {
-  console.error("error");
-}
-
-if (botonReset instanceof HTMLButtonElement) {
-  botonReset.addEventListener("click", function () {
-    numeroTurno = 0;
-    inicio();
-  });
-} else {
-  console.error("error");
-}
-
-if (
-  inputTurno instanceof HTMLInputElement &&
-  botonCambiarTurno instanceof HTMLButtonElement
-) {
-  botonCambiarTurno.addEventListener("click", function () {
-    const nuevoTurno = parseInt(inputTurno.value);
-    if (!isNaN(nuevoTurno)) {
-      numeroTurno = Math.max(0, nuevoTurno);
+  if (botonAnterior instanceof HTMLButtonElement) {
+    botonAnterior.addEventListener("click", function () {
+      numeroTurno = Math.max(0, numeroTurno - 1);
       inicio();
-    } else {
-      console.error("error");
-    }
-  });
+    });
+  } else {
+    console.error("error");
+  }
+
+  if (botonSiguiente instanceof HTMLButtonElement) {
+    botonSiguiente.addEventListener("click", function () {
+      numeroTurno++;
+      inicio();
+    });
+  } else {
+    console.error("error");
+  }
+
+  if (botonReset instanceof HTMLButtonElement) {
+    botonReset.addEventListener("click", function () {
+      numeroTurno = 0;
+      inicio();
+    });
+  } else {
+    console.error("error");
+  }
+
+  if (
+    inputTurno instanceof HTMLInputElement &&
+    botonCambiarTurno instanceof HTMLButtonElement
+  ) {
+    botonCambiarTurno.addEventListener("click", function () {
+      const nuevoTurno = parseInt(inputTurno.value);
+      if (!isNaN(nuevoTurno)) {
+        numeroTurno = Math.max(0, nuevoTurno);
+        inicio();
+      } else {
+        console.error("error");
+      }
+    });
+  }
 }
