@@ -1,14 +1,17 @@
 import "./style.css";
 
-const numeroTurno0 = document.getElementById("numero-turno");
+let numeroTurno: number = 0;
 
-let numeroTurno: string = "";
+const inicio = () => {
+  const numeroTurno0 = document.getElementById("numero-turno");
+  if (numeroTurno0) {
+    numeroTurno0.innerText = numeroTurno.toString().padStart(2, "0");
+  } else {
+    console.error("error");
+  }
+};
 
-if (numeroTurno0 instanceof HTMLHeadingElement) {
-  numeroTurno = numeroTurno0.innerText;
-} else {
-  numeroTurno = "";
-}
+document.addEventListener("DOMContentLoaded", inicio);
 
 const botonAnterior = document.getElementById("botonAnterior");
 
@@ -22,23 +25,29 @@ const botonCambiarTurno = document.getElementById("botonCambiarTurno");
 
 if (botonAnterior instanceof HTMLButtonElement) {
   botonAnterior.addEventListener("click", function () {
-    turnoActual = Math.max(0, turnoActual - 1);
-    actualizarTurnoDisplay();
+    numeroTurno = Math.max(0, numeroTurno - 1);
+    inicio();
   });
+} else {
+  console.error("error");
 }
 
 if (botonSiguiente instanceof HTMLButtonElement) {
   botonSiguiente.addEventListener("click", function () {
-    turnoActual++;
-    actualizarTurnoDisplay();
+    numeroTurno++;
+    inicio();
   });
+} else {
+  console.error("error");
 }
 
 if (botonReset instanceof HTMLButtonElement) {
   botonReset.addEventListener("click", function () {
-    turnoActual = 0;
-    actualizarTurnoDisplay();
+    numeroTurno = 0;
+    inicio();
   });
+} else {
+  console.error("error");
 }
 
 if (
@@ -48,19 +57,10 @@ if (
   botonCambiarTurno.addEventListener("click", function () {
     const nuevoTurno = parseInt(inputTurno.value);
     if (!isNaN(nuevoTurno)) {
-      turnoActual = Math.max(0, nuevoTurno);
-      actualizarTurnoDisplay();
+      numeroTurno = Math.max(0, nuevoTurno);
+      inicio();
+    } else {
+      console.error("error");
     }
   });
-}
-
-// Variable para guardar el turno actual
-let turnoActual = 0;
-
-// Funcion para actualizar el numero de turno
-function actualizarTurnoDisplay() {
-  numeroTurno = turnoActual.toString();
-  if (numeroTurno0) {
-    numeroTurno0.innerText = numeroTurno;
-  }
 }
